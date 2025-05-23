@@ -1,0 +1,25 @@
+// src/index.js
+const { MongoClient, ServerApiVersion } = require('mongodb');
+require('dotenv').config();
+
+const uri = `mongodb+srv://BoomchainLabs:${process.env.Agunnaya112$@boomcluster0.nutbcfh.mongodb.net/?retryWrites=true&w=majority&appName=BoomCluster0`;
+
+const client = new MongoClient(uri, {
+  serverApi: ServerApiVersion.v1,
+  strict: true,
+  deprecationErrors: true,
+});
+
+async function run() {
+  try {
+    await client.connect();
+    await client.db("admin").command({ ping: 1 });
+    console.log("Pinged your deployment. You successfully connected to MongoDB!");
+  } catch (e) {
+    console.error("Connection failed:", e);
+  } finally {
+    await client.close();
+  }
+}
+
+run().catch(console.dir);
